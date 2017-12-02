@@ -14,5 +14,3 @@ function ReverseCaptcha(code) { // Takes a string!
 
     return sum;
 }
-
-console.log(ReverseCaptcha("112211"));
