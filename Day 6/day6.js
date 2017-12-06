@@ -58,8 +58,7 @@ function distributeMemory(data) {
 
     }
 
-	console.log(data);
-	return data;
+    return data;
 }
 
 function findRepeatDistance(data, previous_distributions) {
