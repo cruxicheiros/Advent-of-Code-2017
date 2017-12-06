@@ -66,7 +66,7 @@ function findRepeatDistance(data, previous_distributions) {
 	distributed_data = distributeMemory(data.slice());
 
 	if (previous_distributions.includes(distributed_data.toString())) {
-		return previous_distributions.length;
+		return previous_distributions.length - previous_distributions.indexOf(distributed_data.toString());
 		
 	} else {
 		previous_distributions.push(distributed_data.toString());
