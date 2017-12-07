@@ -54,10 +54,28 @@ function connectTree(tree) {
     })
 }
 
-readFile('testinput.txt').then(function (raw_input) {
+function findRoot(tree) {
+    tree_nodes = Object.keys(tree);
+    rejected = [];
+
+    for (let i of tree_nodes) {
+        for (let j of Object.keys(tree[i].connections)) {
+                rejected.push(tree[j].name);
+        }
+    }
+
+
+    for (let i of tree_nodes) {
+        if (!(rejected.includes(tree[i].name))) {
+            return tree[i].name;
+        }
+    }
+}
+
+readFile('input.txt').then(function (raw_input) {
     populateTree(raw_input).then(function (nodes) {
         connectTree(nodes).then(function (connected_tree) {
-            console.log(connected_tree['ugml']);
+            console.log(findRoot(connected_tree));
         });
     });
 
