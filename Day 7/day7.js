@@ -60,14 +60,14 @@ function findRoot(tree) {
 
     for (let i of tree_nodes) {
         for (let j of Object.keys(tree[i].connections)) {
-                rejected.push(tree[j].name);
+                rejected.push(j);
         }
     }
 
 
     for (let i of tree_nodes) {
         if (!(rejected.includes(tree[i].name))) {
-            return tree[i].name;
+            return i
         }
     }
 }
