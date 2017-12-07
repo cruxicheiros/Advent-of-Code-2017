@@ -27,7 +27,7 @@ function parseData(data) {
 function findHighest(data) {
 	let highest_number_index = 0;
 	let highest_number = 0;
-	
+
 	for (i = 0; i < data.length; i++) {
 		if (data[i] > highest_number) {
 			highest_number_index = i;
@@ -58,7 +58,7 @@ function distributeMemory(data) {
 
     }
 
-    return data;
+    return data
 }
 
 function findRepeatDistance(data, previous_distributions) {
@@ -78,4 +78,5 @@ readFile('input.txt').then(function (raw_input) {
     parseData(raw_input).then(function (structured_data) {
         console.log(findRepeatDistance(structured_data.slice(), [structured_data.toString()]));
     });
+
 });
