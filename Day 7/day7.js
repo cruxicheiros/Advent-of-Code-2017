@@ -66,7 +66,7 @@ function findRoot(tree) {
 
 
     for (let i of tree_nodes) {
-        if (!(rejected.includes(tree[i].name))) {
+        if (!(rejected.includes(i))) {
             return i
         }
     }
