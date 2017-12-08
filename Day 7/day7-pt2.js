@@ -64,17 +64,69 @@ function findRoot(tree) {
         }
     }
 
+
     for (let i of tree_nodes) {
         if (!(rejected.includes(i))) {
-            return i
+            return tree[i]
         }
     }
+}
+
+function getBranchWeight(start_node) {
+	let branch_weight = start_node.weight
+	let queue = [start_node]
+	
+	for (let i of queue) {
+		for (let j of Object.keys(i.connections)) {
+			queue.push(i.connections[j]);
+			branch_weight += i.connections[j].weight;
+		}
+		
+	}
+	
+	return branch_weight;
+}
+
+function findBadNode(tree) {
+	let root_node = findRoot(tree);
+	let queue = [root_node];
+	let weight_history = [];
+	
+	for (let i of queue) {
+		let weight_branches = {};
+		let branch_weight = 0;
+
+		for (let j of Object.keys(i.connections)) {
+			branch_weight = getBranchWeight(i.connections[j]);
+			if (weight_branches[branch_weight]) {
+				weight_branches[branch_weight].push(i.connections[j]);
+			} else {
+				weight_branches[branch_weight] = [i.connections[j]];
+			}
+		}
+		
+		weight_history.push(weight_branches);
+		
+		if (Object.keys(weight_branches).length > 1) {
+			for (j of Object.keys(weight_branches)) {
+				if (weight_branches[j].length === 1) {
+					queue.push(weight_branches[j][0]);
+				}
+			}
+		} else {
+			previous_weights = weight_history[queue.length - 2];
+			weight_difference = Math.abs(Object.keys(previous_weights)[0] - Object.keys(previous_weights)[1])
+			fixed_weight = i.weight - weight_difference;
+			return (i.name + " should weigh " + fixed_weight);
+		}
+	}
+	
 }
 
 readFile('input.txt').then(function (raw_input) {
     populateTree(raw_input).then(function (nodes) {
         connectTree(nodes).then(function (connected_tree) {
-            console.log(findRoot(connected_tree));
+            console.log(findBadNode(connected_tree));
         });
     });
 
