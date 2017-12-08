@@ -18,7 +18,6 @@ function listRegisters(statements) {
         registers[i['arithmetic']['register']] = 0;
         registers[i['logic']['register']] = 0;
     }
-
     return registers;
 }
 
@@ -28,7 +27,6 @@ function evaluateArithmetic(registers, expression) {
     };
 
     registers[expression['register']] = operators[expression['operator']](registers[expression['register']], expression['operand']);
-
     return registers;
 }
 
@@ -83,11 +81,12 @@ function evaluateAllStatements(statements) {
     for (let i of statements) {
         registers = parseInstruction(registers, i);
     }
+
     return registers;
 }
 
 function findHighestRegister(registers) {
-    keys = Object.keys(registers);
+    let keys = Object.keys(registers);
     let highest_value = registers[keys[0]];
 
     for (let i of keys) {
@@ -99,8 +98,26 @@ function findHighestRegister(registers) {
     return highest_value;
 }
 
+function findAllTimeHighest(statements) {
+    let registers = listRegisters(statements);
+    let keys = Object.keys(registers);
+
+    let highest_value = registers[keys[0]];
+
+    for (let i of statements) {
+        registers = parseInstruction(registers, i);
+        let high_value = findHighestRegister(registers);
+
+        if (high_value > highest_value) {
+            highest_value = high_value;
+        }
+    }
+
+    return highest_value;
+}
+
 readFile('input.txt').then(function (raw_input) {
     let structured_data = structureData(raw_input);
-    console.log(findHighestRegister(evaluateAllStatements(structured_data)));
+    console.log(findAllTimeHighest(structured_data));
 
 });
