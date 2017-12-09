@@ -29,7 +29,6 @@ function countGarbage(data) {
             } else {
                 garbage_amount++;
             }
-
         } else if (i === '<') {
             in_garbage = true;
         }
