@@ -30,7 +30,6 @@ const velocities = {
     'nw' : [-1, 0]
 };
 
-console.time('a');
 readFile('input.txt').then(function (path) {
     let current_position = [0, 0];
     let furthest = 0;
@@ -46,6 +45,5 @@ readFile('input.txt').then(function (path) {
     }
 
     console.log(furthest);
-    console.timeEnd('a');
 
 });
