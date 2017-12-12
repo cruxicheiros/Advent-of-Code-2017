@@ -47,3 +47,4 @@ readFile('input.txt').then(function (path) {
     console.log(furthest);
 
 });
+
